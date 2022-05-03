@@ -1,0 +1,28 @@
+﻿
+@model IAProject.Models.user
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "LoginOrRegistration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.email)
+        @Html.EditorFor(x => x.email)
+        @Html.ValidationMessageFor(x => x.email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Password)
+        @Html.EditorFor(x => x.Password)
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+
+    <button type="submit" class="btn btn-default">Login</button>
+
+    <div>
+        @Html.ActionLink("if you do not have an account , lets create one", "Registration")
+    </div>
+}
