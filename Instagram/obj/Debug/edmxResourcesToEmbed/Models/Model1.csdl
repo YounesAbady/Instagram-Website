@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="data" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PostID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="post" Relationship="Self.FK_comments_posts" FromRole="comments" ToRole="posts" />
+    <NavigationProperty Name="user" Relationship="Self.FK_comments_users" FromRole="comments" ToRole="users" />
+  </EntityType>
+  <EntityType Name="FriendRequest">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderID" Type="Int32" Nullable="false" />
+    <Property Name="RecieverID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK_FriendRequests_users" FromRole="FriendRequests" ToRole="users" />
+    <NavigationProperty Name="user1" Relationship="Self.FK_FriendRequests_users1" FromRole="FriendRequests" ToRole="users" />
+  </EntityType>
+  <EntityType Name="like">
+    <Key>
+      <PropertyRef Name="LikeID" />
+    </Key>
+    <Property Name="LikeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="PostID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="post" Relationship="Self.FK_likes_posts" FromRole="likes" ToRole="posts" />
+    <NavigationProperty Name="user" Relationship="Self.FK_likes_users" FromRole="likes" ToRole="users" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OwnerID" Type="Int32" Nullable="false" />
+    <Property Name="disc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="comments" Relationship="Self.FK_comments_posts" FromRole="posts" ToRole="comments" />
+    <NavigationProperty Name="likes" Relationship="Self.FK_likes_posts" FromRole="posts" ToRole="likes" />
+    <NavigationProperty Name="user" Relationship="Self.FK_posts_users" FromRole="posts" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="comments" Relationship="Self.FK_comments_users" FromRole="users" ToRole="comments" />
+    <NavigationProperty Name="FriendRequests" Relationship="Self.FK_FriendRequests_users" FromRole="users" ToRole="FriendRequests" />
+    <NavigationProperty Name="FriendRequests1" Relationship="Self.FK_FriendRequests_users1" FromRole="users" ToRole="FriendRequests" />
+    <NavigationProperty Name="likes" Relationship="Self.FK_likes_users" FromRole="users" ToRole="likes" />
+    <NavigationProperty Name="posts" Relationship="Self.FK_posts_users" FromRole="users" ToRole="posts" />
+  </EntityType>
+  <Association Name="FK_comments_posts">
+    <End Role="posts" Type="Self.post" Multiplicity="1" />
+    <End Role="comments" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="posts">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_comments_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="comments" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequests_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="FriendRequests" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequests">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequests_users1">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="FriendRequests" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequests">
+        <PropertyRef Name="RecieverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_likes_posts">
+    <End Role="posts" Type="Self.post" Multiplicity="1" />
+    <End Role="likes" Type="Self.like" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="posts">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="likes">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_likes_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="likes" Type="Self.like" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="likes">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_posts_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="posts" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="posts">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectDataBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="comments" EntityType="Self.comment" />
+    <EntitySet Name="FriendRequests" EntityType="Self.FriendRequest" />
+    <EntitySet Name="likes" EntityType="Self.like" />
+    <EntitySet Name="posts" EntityType="Self.post" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK_comments_posts" Association="Self.FK_comments_posts">
+      <End Role="posts" EntitySet="posts" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_comments_users" Association="Self.FK_comments_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequests_users" Association="Self.FK_FriendRequests_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="FriendRequests" EntitySet="FriendRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequests_users1" Association="Self.FK_FriendRequests_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="FriendRequests" EntitySet="FriendRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_likes_posts" Association="Self.FK_likes_posts">
+      <End Role="posts" EntitySet="posts" />
+      <End Role="likes" EntitySet="likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_likes_users" Association="Self.FK_likes_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="likes" EntitySet="likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_posts_users" Association="Self.FK_posts_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="posts" EntitySet="posts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
