@@ -18,7 +18,12 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
+<<<<<<< Updated upstream:IAProject/IAProject.csproj.user
     <WebStackScaffolding_DbContextTypeFullName>IAProject.Models.ProjectDataBase</WebStackScaffolding_DbContextTypeFullName>
+=======
+    <WebStackScaffolding_DbContextTypeFullName>Instagram.Models.ProjectDataBaseEntities</WebStackScaffolding_DbContextTypeFullName>
+    <ActiveDebugTarget />
+>>>>>>> Stashed changes:Instagram/Instagram.csproj.user
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
