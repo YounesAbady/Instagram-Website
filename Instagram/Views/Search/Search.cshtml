@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Instagram.Models.user>
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("Search", "Search", FormMethod.Get))
+{
+    @Html.TextBox("Searching")<input type="submit" value="Search" />
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User First Name</th>
+            <th>User Last Name</th>
+            <th>User Email</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">No Match</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fname</td>
+                    <td>@item.Lname</td>
+                    <td>@item.email</td>
+                    <td>@Html.ActionLink("View Profile", "Index", new { id = item.UserID })</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

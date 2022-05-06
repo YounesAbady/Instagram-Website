@@ -1,0 +1,88 @@
+﻿@model Instagram.ViewModels.PostsAndUser
+
+@{
+    ViewBag.Title = "My Profile";
+}
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Profile Picture
+        </dt>
+
+        <dd>
+            @if (Model.u.ImagePath !=null)
+            {
+                
+                <img src="@Url.Content(Model.u.ImagePath)" width="250" height="250"/>
+            }
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Lname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Password)
+        </dd>
+
+    </dl>
+</div>
+    @foreach (var item in Model.p)
+    {
+        if (item.OwnerID == Model.u.UserID)
+        {
+            <div>
+                <dd>
+                    <img src="@Url.Content(item.ImagePath)" width="250" height="250" />
+                </dd>
+                <dt>
+                    @Html.DisplayFor(model=> item.disc)
+                </dt>
+            </div>
+
+
+        }
+    }
+
+
+
+<p>
+    @Html.ActionLink("Edit", "EditProfile", new { id = Model.u.UserID }) |
+    @Html.ActionLink("Back to posting", "CreatePost", "Post")
+</p>

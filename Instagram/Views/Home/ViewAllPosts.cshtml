@@ -1,0 +1,36 @@
+﻿@model Instagram.ViewModels.FullHomePage
+
+@{
+    ViewBag.Title = "ViewAllPosts";
+}
+
+
+
+
+
+
+@foreach (var item in Model.posts) {
+<div>
+    
+        @foreach (var x in Model.User) {
+            if (x.UserID==item.OwnerID)
+            { <dt>
+                    @Html.DisplayFor(modelItem=>x.Fname)
+                    @Html.DisplayFor(modelItem=>x.Lname)
+              </dt>
+            }
+        }
+    <dd>
+        <img src="@Url.Content(item.ImagePath)" width="250" height="250" />
+    </dd>
+    
+    <dt>
+        @Html.DisplayFor(modelItem => item.disc)
+    </dt>
+</div>
+ 
+}
+
+<p>
+    @Html.ActionLink("Log out", "Login", "LoginOrRegistration")
+</p>
