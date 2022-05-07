@@ -23,6 +23,10 @@ namespace Instagram.Models
             this.comments = new HashSet<comment>();
             this.likes = new HashSet<like>();
         }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         public int PostID { get; set; }
         public string ImagePath { get; set; }
         [DisplayName("Upload Picture")]

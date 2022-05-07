@@ -16,7 +16,7 @@
     <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SenderID" Type="int" Nullable="false" />
     <Property Name="RecieverID" Type="int" Nullable="false" />
-    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="likes">
     <Key>

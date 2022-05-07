@@ -51,12 +51,12 @@ namespace Instagram.Controllers
         [HttpPost]
         public ActionResult Login(user log)
         {
-            user user = db.users.Single(x => x.email == log.email && x.Password == log.Password);
+            user user = db.users.SingleOrDefault(x => x.email == log.email && x.Password == log.Password);
             if (user!=null)
             {
 
                 GlobalUserID.globalUserID = user.UserID;
-                return RedirectToAction("CreatePost", "Post");
+                return RedirectToAction("ViewAllPosts", "Home");
             }
             else { return RedirectToAction("Login"); }
         }

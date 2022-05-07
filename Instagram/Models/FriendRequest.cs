@@ -17,7 +17,7 @@ namespace Instagram.Models
         public int RequestID { get; set; }
         public int SenderID { get; set; }
         public int RecieverID { get; set; }
-        public bool Status { get; set; }
+        public Nullable<bool> Status { get; set; }
     
         public virtual user user { get; set; }
         public virtual user user1 { get; set; }

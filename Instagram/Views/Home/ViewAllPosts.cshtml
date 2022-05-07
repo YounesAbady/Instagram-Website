@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿@model Instagram.ViewModels.FullHomePage
 
 @{
@@ -34,3 +35,32 @@
 <p>
     @Html.ActionLink("Log out", "Login", "LoginOrRegistration")
 </p>
+=======
+﻿@model IEnumerable<Instagram.ViewModels.FullHomePage>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@foreach (var item in Model) {
+    <div>
+        <dt>
+            @Html.DisplayFor(modelItem=>item.User.Fname)
+            @Html.DisplayFor(modelItem=>item.User.Lname)
+        </dt>
+        <dd>
+            <img src="@Url.Content(item.posts.ImagePath)" width="200" height="200" />
+        </dd>
+        <dd>
+            @Html.DisplayFor(modelItem => item.posts.disc)
+        </dd>
+
+        <td>
+            @Html.ActionLink("Like", "Like", new { id=item.posts.PostID }) |
+            @Html.ActionLink("Dislike", "Dislike", new { id = item.posts.PostID } ) |
+            @Html.ActionLink("Comment", "Comment", new { id = item.posts.PostID } )
+        </td>
+    </div>
+}
+
+>>>>>>> Stashed changes

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Instagram.ViewModels.SenderAndRecieverData>
+
+@{
+    ViewBag.Title = "Friend Requests";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Status
+        </th>
+        <th>
+            Profile Picture
+        </th>
+        <th>
+            Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        @if (item.request.Status == null)
+        {
+            <td>Waiting</td>
+        }
+        else
+        { if (item.request.Status == true)
+            {
+            <td>
+                Accepted
+            </td>
+            }
+            else { <td>Rejected</td>}
+        }
+        <td>
+            <img src="@Url.Content(item.Sender.ImagePath)" width="150" height="150" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sender.Fname)
+            @Html.DisplayFor(modelItem => item.Sender.Lname)
+
+        </td>
+        @if (item.request.Status == null&&item.Sender.UserID==item.request.SenderID)
+        {
+        <td>
+            @Html.ActionLink("Accept", "Accept", new { id = item.request.RequestID }) |
+            @Html.ActionLink("Reject", "Reject", new { id = item.request.RequestID }) 
+        </td>
+        }
+    </tr>
+}
+
+</table>

@@ -1,0 +1,92 @@
+﻿@model Instagram.ViewModels.PostsAndUserAndFriendshipAndComments
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+@if (Model.f == null)
+{
+    <p>
+        @Html.ActionLink("Add Friend", "AddFriend", new { id = Model.u.UserID })
+    </p>
+}
+else
+{
+    if (Model.f.Status == true)
+    {
+        <div>You Are Friends</div>
+    }
+    else
+    {
+    }
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Profile Picture
+        </dt>
+
+        <dd>
+            @if (Model.u.ImagePath != null)
+            {
+
+                <img src="@Url.Content(Model.u.ImagePath)" width="250" height="250" />
+            }
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Lname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.mobile)
+        </dd>
+
+
+    </dl>
+</div>
+@foreach (var item in Model.p)
+{
+    if (item.OwnerID == Model.u.UserID)
+    {
+        <div>
+            <dd>
+                <img src="@Url.Content(item.ImagePath)" width="250" height="250" />
+            </dd>
+            <dt>
+                @Html.DisplayFor(model => item.disc)
+            </dt>
+        </div>
+
+
+    }
+}
+

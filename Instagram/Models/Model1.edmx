@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="comments">
           <Key>
             <PropertyRef Name="CommentID" />
@@ -21,7 +21,7 @@
           <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SenderID" Type="int" Nullable="false" />
           <Property Name="RecieverID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="likes">
           <Key>
@@ -171,8 +171,7 @@
             <End Role="posts" EntitySet="posts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -194,7 +193,7 @@
           <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SenderID" Type="Int32" Nullable="false" />
           <Property Name="RecieverID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="true" />
           <NavigationProperty Name="user" Relationship="Self.FK_FriendRequests_users" FromRole="FriendRequests" ToRole="users" />
           <NavigationProperty Name="user1" Relationship="Self.FK_FriendRequests_users1" FromRole="FriendRequests" ToRole="users" />
         </EntityType>
