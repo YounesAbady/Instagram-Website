@@ -129,6 +129,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    <Compile Include="Controllers\FriendsController.cs" />
+>>>>>>> Stashed changes
 =======
     <Compile Include="Controllers\FriendsController.cs" />
 >>>>>>> Stashed changes
@@ -175,6 +179,11 @@
     <Compile Include="ViewModels\FullHomePage.cs" />
     <Compile Include="ViewModels\PostsAndUser.cs" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    <Compile Include="ViewModels\PostsAndUserAndFriendshipAndComments.cs" />
+    <Compile Include="ViewModels\SenderAndRecieverData.cs" />
+>>>>>>> Stashed changes
 =======
     <Compile Include="ViewModels\PostsAndUserAndFriendshipAndComments.cs" />
     <Compile Include="ViewModels\SenderAndRecieverData.cs" />
@@ -239,14 +248,20 @@
     <Content Include="Views\Profile\ViewProfile.cshtml" />
     <Content Include="Views\Profile\EditProfile.cshtml" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <Content Include="Views\Profile\ViewMyPosts.cshtml" />
     <Content Include="Views\Home\ViewAllPosts.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
 =======
+=======
+>>>>>>> Stashed changes
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Search\ViewOtherProfile.cshtml" />
     <Content Include="Views\Friends\ViewRequests.cshtml" />
     <Content Include="Views\Home\ViewAllPosts.cshtml" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>

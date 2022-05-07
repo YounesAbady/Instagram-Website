@@ -5,7 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using Instagram.Models;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+using Instagram.ViewModels;
+using Instagram.Globals;
+>>>>>>> Stashed changes
 =======
 using Instagram.ViewModels;
 using Instagram.Globals;
@@ -17,6 +22,7 @@ namespace Instagram.Controllers
         ProjectDataBaseEntities db = new ProjectDataBaseEntities();
         // GET: Search
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public ActionResult Index()
         {
             return View();
@@ -26,6 +32,8 @@ namespace Instagram.Controllers
         {
             return View(db.users.Where(x => x.Fname.StartsWith(Searching) || x.Lname.StartsWith(Searching) || Searching == null).ToList());
 =======
+=======
+>>>>>>> Stashed changes
 
         public ActionResult Search(string Searching)
         {
@@ -62,6 +70,9 @@ namespace Instagram.Controllers
             db.FriendRequests.Add(f);
             db.SaveChanges();
             return RedirectToAction("Search");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
     }

@@ -4,7 +4,11 @@
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <h2>Search</h2>
+=======
+<h2>People You May Know</h2>
+>>>>>>> Stashed changes
 =======
 <h2>People You May Know</h2>
 >>>>>>> Stashed changes
@@ -35,6 +39,7 @@
             foreach (var item in Model)
             {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 <tr>
                     <td>@item.Fname</td>
                     <td>@item.Lname</td>
@@ -42,6 +47,8 @@
                     <td>@Html.ActionLink("View Profile", "Index", new { id = item.UserID })</td>
                 </tr>
 =======
+=======
+>>>>>>> Stashed changes
                 if (!@ViewData["ID"].Equals(item.UserID))
                 {
                 <tr>
@@ -52,6 +59,9 @@
                     <td>@Html.ActionLink("View Profile", "ViewOtherProfile", new { id = item.UserID })</td>
                 </tr>
                 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             }
         }

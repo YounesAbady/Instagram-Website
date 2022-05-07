@@ -24,6 +24,10 @@ namespace Instagram.Models
             this.likes = new HashSet<like>();
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes

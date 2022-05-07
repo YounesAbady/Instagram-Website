@@ -8,8 +8,13 @@ namespace Instagram.ViewModels
     public class FullHomePage
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public List<post> posts { get; set; }
         public List<user> User { get; set; }
+=======
+        public  post posts { get; set; }
+        public  user User { get; set; }
+>>>>>>> Stashed changes
 =======
         public  post posts { get; set; }
         public  user User { get; set; }

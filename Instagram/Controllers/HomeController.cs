@@ -6,6 +6,11 @@ using System.Web.Mvc;
 using Instagram.Models;
 using Instagram.ViewModels;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+using Instagram.Globals;
+
+>>>>>>> Stashed changes
 =======
 using Instagram.Globals;
 
@@ -19,12 +24,15 @@ namespace Instagram.Controllers
         public ActionResult ViewAllPosts()
         {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             FullHomePage home = new FullHomePage
             {
                 User = db.users.ToList(),
                 posts=db.posts.ToList()
             };
 =======
+=======
+>>>>>>> Stashed changes
             List<FullHomePage> home = new List<FullHomePage>();
             List<post> posts = db.posts.ToList();
             List<FriendRequest> friends = db.FriendRequests.ToList();
@@ -50,6 +58,9 @@ namespace Instagram.Controllers
 
                 }
             }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             
             return View(home);
