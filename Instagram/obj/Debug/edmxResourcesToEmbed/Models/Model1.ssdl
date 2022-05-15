@@ -16,7 +16,7 @@
     <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SenderID" Type="int" Nullable="false" />
     <Property Name="RecieverID" Type="int" Nullable="false" />
-    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="likes">
     <Key>
@@ -25,6 +25,8 @@
     <Property Name="LikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="NuLikes" Type="bit" />
+    <Property Name="NuDislikes" Type="bit" />
   </EntityType>
   <EntityType Name="posts">
     <Key>

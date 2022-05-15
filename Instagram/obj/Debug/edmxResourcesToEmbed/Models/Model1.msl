@@ -24,6 +24,8 @@
     <EntitySetMapping Name="likes">
       <EntityTypeMapping TypeName="ProjectDataBaseModel.like">
         <MappingFragment StoreEntitySet="likes">
+          <ScalarProperty Name="NuDislikes" ColumnName="NuDislikes" />
+          <ScalarProperty Name="NuLikes" ColumnName="NuLikes" />
           <ScalarProperty Name="LikeID" ColumnName="LikeID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="PostID" ColumnName="PostID" />

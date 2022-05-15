@@ -18,7 +18,7 @@
     <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SenderID" Type="Int32" Nullable="false" />
     <Property Name="RecieverID" Type="Int32" Nullable="false" />
-    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="true" />
     <NavigationProperty Name="user" Relationship="Self.FK_FriendRequests_users" FromRole="FriendRequests" ToRole="users" />
     <NavigationProperty Name="user1" Relationship="Self.FK_FriendRequests_users1" FromRole="FriendRequests" ToRole="users" />
   </EntityType>
@@ -31,6 +31,8 @@
     <Property Name="PostID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="post" Relationship="Self.FK_likes_posts" FromRole="likes" ToRole="posts" />
     <NavigationProperty Name="user" Relationship="Self.FK_likes_users" FromRole="likes" ToRole="users" />
+    <Property Name="NuLikes" Type="Boolean" />
+    <Property Name="NuDislikes" Type="Boolean" />
   </EntityType>
   <EntityType Name="post">
     <Key>
