@@ -1,66 +1,42 @@
 ﻿@model Instagram.Models.post
+
 @{
     ViewBag.Title = "CreatePost";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/StyleSheet4.css" rel="stylesheet" />
+<h2>CreatePost</h2>
 
-</head>
-<body>
-    <!-- NavBar -->
-    <nav class="navbar">
-        <div class="nav-wrapper">
-            <img src="~/img/logo.PNG" class="brand-img" alt="">
+@using (Html.BeginForm("CreatePost", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-            <div class="nav-items">
-                <img src="~/img/home.PNG" class="icon" alt="">
-                @Html.ActionLink("Home", "ViewAllPosts", "Home")
-                <img src="~/img/search.png" class="icon" alt="">
-                @Html.ActionLink("Search", "Search", "Search")
-                <img src="~/img/add.PNG" class="icon" alt="">
-                @Html.ActionLink("Create Posts", "CreatePost", "Post")
-                <img src="~/img/like.PNG" class="icon" alt="">
-                @Html.ActionLink("Requests", "ViewRequests", "Friends")
-                <img src="~/img/prof2.png" class="icon" alt="">
-                @Html.ActionLink("My Profile", "ViewProfile", "Profile")
-                <img src="~/img/log.jpg" class="icon" alt="">
-                @Html.ActionLink("Log Out", "Login", "LoginOrRegistration")
-            </div>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+
+            @Html.LabelFor(x => x.ImagePath)
+            @Html.ValidationMessageFor(x => x.ImagePath)
+            <input type="file" name="ImageFile" required />
         </div>
-    </nav>
-    <br> <br>
-    <h2>CreatePost</h2>
-    @using (Html.BeginForm("CreatePost", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(x => x.disc)
+            @Html.TextBoxFor(x => x.disc)
+            @Html.ValidationMessageFor(x => x.disc)
 
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(x => x.ImagePath)
-                @Html.ValidationMessageFor(x => x.ImagePath)
-                <input type="file" name="ImageFile" required />
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.disc)
-                @Html.TextBoxFor(x => x.disc)
-                @Html.ValidationMessageFor(x => x.disc)
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" id="submit" />
-                </div>
-            </div>
         </div>
 
-    }
-</body>
-</html>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("My Profile", "ViewProfile", "Profile")
+        @Html.ActionLink("Search", "Search", "Search")
+
+    </div>
+}
+

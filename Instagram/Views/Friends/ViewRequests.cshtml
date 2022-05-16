@@ -1,87 +1,55 @@
 ﻿@model IEnumerable<Instagram.ViewModels.SenderAndRecieverData>
+
 @{
     ViewBag.Title = "Friend Requests";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/StyleSheet4.css" rel="stylesheet" />
-</head>
-<body>
-    <!-- NavBar -->
-    <nav class="navbar">
-        <div class="nav-wrapper">
-            <img src="~/img/logo.PNG" class="brand-img" alt="">
+<table class="table">
+    <tr>
+        <th>
+            Status
+        </th>
+        <th>
+            Profile Picture
+        </th>
+        <th>
+            Name
+        </th>
+        <th></th>
+    </tr>
 
-            <div class="nav-items">
-                <img src="~/img/home.PNG" class="icon" alt="">
-                @Html.ActionLink("Home", "ViewAllPosts", "Home")
-                <img src="~/img/search.png" class="icon" alt="">
-                @Html.ActionLink("Search", "Search", "Search")
-                <img src="~/img/add.PNG" class="icon" alt="">
-                @Html.ActionLink("Create Posts", "CreatePost", "Post")
-                <img src="~/img/like.PNG" class="icon" alt="">
-                @Html.ActionLink("Requests", "ViewRequests", "Friends")
-                <img src="~/img/prof2.png" class="icon" alt="">
-                @Html.ActionLink("My Profile", "ViewProfile", "Profile")
-                <img src="~/img/log.jpg" class="icon" alt="">
-                @Html.ActionLink("Log Out", "Login", "LoginOrRegistration")
-            </div>
-        </div>
-    </nav>
-    <br> <br>
-    <table class="table">
-        <tr>
-            <th>
-                Status
-            </th>
-            <th>
-                Profile Picture
-            </th>
-            <th>
-                Name
-            </th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
+@foreach (var item in Model) {
+    <tr>
+
+        @if (item.request.Status == null)
         {
-            <tr>
-                @if (item.request.Status == null)
-                {
-                    <td>Waiting</td>
-                }
-                else
-                {
-                    if (item.request.Status == true)
-                    {
-                        <td>
-                            Accepted
-                        </td>
-                    }
-                    else
-                    {
-                        <td>Rejected</td>}
-                }
-                <td>
-                    <img src="@Url.Content(item.Sender.ImagePath)" width="115" height="120" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sender.Fname)
-                    @Html.DisplayFor(modelItem => item.Sender.Lname)
-                </td>
-                @if (item.request.Status == null && item.Sender.UserID == item.request.SenderID)
-                {
-                    <td>
-                        @Html.ActionLink("Accept", "Accept", new { id = item.request.RequestID }) |
-                        @Html.ActionLink("Reject", "Reject", new { id = item.request.RequestID })
-                    </td>
-                }
-            </tr>
+            <td>Waiting</td>
         }
-    </table>
-</body>
-</html>
+        else
+        { if (item.request.Status == true)
+            {
+            <td>
+                Accepted
+            </td>
+            }
+            else { <td>Rejected</td>}
+        }
+        <td>
+            <img src="@Url.Content(item.Sender.ImagePath)" width="150" height="150" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sender.Fname)
+            @Html.DisplayFor(modelItem => item.Sender.Lname)
+
+        </td>
+        @if (item.request.Status == null&&item.Sender.UserID==item.request.SenderID)
+        {
+        <td>
+            @Html.ActionLink("Accept", "Accept", new { id = item.request.RequestID }) |
+            @Html.ActionLink("Reject", "Reject", new { id = item.request.RequestID }) 
+        </td>
+        }
+    </tr>
+}
+
+</table>

@@ -27,7 +27,7 @@ namespace Instagram.Controllers
             List < FriendRequest >friendRequs= db.FriendRequests.ToList();
             foreach (FriendRequest f in friendRequs)
             {
-                if (f.SenderID == GlobalUserID.globalUserID&&f.RecieverID==id)
+                if ((f.SenderID == GlobalUserID.globalUserID&&f.RecieverID==id)|| (f.RecieverID == GlobalUserID.globalUserID && f.SenderID == id))
                     p.f = f;
             }
             p.LoggedinUser = GlobalUserID.globalUserID;

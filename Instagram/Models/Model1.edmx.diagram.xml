@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="94b2eaae26554f9980df1c1865f931c6" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectDataBaseModel.comment" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDataBaseModel.FriendRequest" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDataBaseModel.like" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDataBaseModel.post" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectDataBaseModel.user" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_comments_posts" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_comments_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_FriendRequests_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_FriendRequests_users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_likes_posts" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_likes_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectDataBaseModel.FK_posts_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

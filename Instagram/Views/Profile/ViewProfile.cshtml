@@ -1,107 +1,93 @@
 ﻿@model Instagram.ViewModels.PostsAndUser
+
 @{
     ViewBag.Title = "My Profile";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/StyleSheet5.css" rel="stylesheet" />
-</head>
-<body>
-    <!-- NavBar -->
-    <nav class="navbar">
-        <div class="nav-wrapper">
-            <img src="~/img/logo.PNG" class="brand-img" alt="">
 
-            <div class="nav-items">
-                <img src="~/img/home.PNG" class="icon" alt="">
-                @Html.ActionLink("Home", "ViewAllPosts", "Home")
-                <img src="~/img/search.png" class="icon" alt="">
-                @Html.ActionLink("Search", "Search", "Search")
-                <img src="~/img/add.PNG" class="icon" alt="">
-                @Html.ActionLink("Create Posts", "CreatePost", "Post")
-                <img src="~/img/like.PNG" class="icon" alt="">
-                @Html.ActionLink("Requests", "ViewRequests", "Friends")
-                <img src="~/img/prof2.png" class="icon" alt="">
-                @Html.ActionLink("My Profile", "ViewProfile", "Profile")
-                <img src="~/img/log.jpg" class="icon" alt="">
-                @Html.ActionLink("Log Out", "Login", "LoginOrRegistration")
-            </div>
-        </div>
-    </nav>
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <header>
-                <div class="container">
-                    <div class="profile">
-                        <div class="profile-image">
-                            @if (Model.u.ImagePath != null)
-                            {
 
-                                <img src="@Url.Content(Model.u.ImagePath)" width="150" height="150">
-                            }
-                        </div>
-                        <div class="profile-bio">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.u.Fname)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.u.Fname)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.u.Lname)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.u.Lname)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.u.email)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.u.email)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.u.mobile)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.u.mobile)
-                            </dd>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Profile Picture
+        </dt>
 
-                        </div>
-                        <br>
-                        <div class="profile-user-settings">
+        <dd>
+            @if (Model.u.ImagePath !=null)
+            {
+                
+                <img src="@Url.Content(Model.u.ImagePath)" width="250" height="250"/>
+            }
 
-                            <img src="~/img/edit.png" width='25' height='25'>
-                            @Html.ActionLink("Edit", "EditProfile", new { id = Model.u.UserID }) |
-                        </div>
-                    </div>
-                    <!-- End of profile section -->
-                </div>
-                <!-- End of container -->
-            </header>
-        </dl>
-    </div>
-</body>
-@foreach (var item in Model.p)
-{
-    if (item.OwnerID == Model.u.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Lname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u.Password)
+        </dd>
+
+    </dl>
+</div>
+    @foreach (var item in Model.p)
     {
+        if (item.OwnerID == Model.u.UserID)
+        {
+            <div>
+                <dd>
+                    <img src="@Url.Content(item.ImagePath)" width="250" height="250" />
+                </dd>
+                <dt>
+                    @Html.DisplayFor(model=> item.disc)
+                </dt>
+            </div>
 
-        <div>
-            <dd>
-                <img src="@Url.Content(item.ImagePath)" width="350" height="350" />
-            </dd>
-            <dt>
-                @Html.DisplayFor(model => item.disc)
-            </dt>
-        </div>
 
-
+        }
     }
-}
 
 
+
+<p>
+    @Html.ActionLink("Edit", "EditProfile", new { id = Model.u.UserID }) |
+</p>
+<p> 
+    @Html.ActionLink("Back to posting", "CreatePost", "Post")
+</p>
+<p>
+    @Html.ActionLink("My Friend Requests", "ViewRequests", "Friends")
+</p>

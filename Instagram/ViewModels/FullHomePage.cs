@@ -13,6 +13,5 @@ namespace Instagram.ViewModels
         public List<comment> comments { get; set; }
         public int LikesCounter = 0;
         public int DislikesCounter = 0;
-        public comment makeComment { get; set; }
     }
 }

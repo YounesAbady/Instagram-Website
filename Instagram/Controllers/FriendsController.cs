@@ -19,10 +19,13 @@ namespace Instagram.Controllers
             List<FriendRequest> friends = db.FriendRequests.ToList();
             foreach (var item in friends)
             {
-                if (item.RecieverID == GlobalUserID.globalUserID)
+                if (item.RecieverID == GlobalUserID.globalUserID||item.SenderID==GlobalUserID.globalUserID)
                 {
                     var user=new user();
-                    user = db.users.Single(x => x.UserID == item.SenderID); 
+                    if (item.RecieverID == GlobalUserID.globalUserID)
+                    {  user = db.users.Single(x => x.UserID == item.SenderID); }
+                    else
+                    {  user = db.users.Single(x => x.UserID == item.RecieverID); }
                     SenderAndRecieverData s = new SenderAndRecieverData
                     {
                         Sender = user,

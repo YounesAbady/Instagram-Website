@@ -179,22 +179,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\StyleSheet1.css" />
-    <Content Include="Content\StyleSheet2.css" />
-<<<<<<< Updated upstream:Instagram/Instagram.csproj
-    <Content Include="Content\StyleSheet3.css" />
-    <Content Include="Content\StyleSheet4.css" />
-    <Content Include="Content\StyleSheet5.css" />
-=======
->>>>>>> Stashed changes:IAProject/IAProject.csproj
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\comment.PNG" />
-    <Content Include="img\home.PNG" />
-    <Content Include="img\like.PNG" />
-    <Content Include="img\logo.PNG" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -245,7 +233,6 @@
     <Content Include="Views\Search\ViewOtherProfile.cshtml" />
     <Content Include="Views\Friends\ViewRequests.cshtml" />
     <Content Include="Views\Home\ViewAllPosts.cshtml" />
-    <Content Include="Views\Home\makeComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

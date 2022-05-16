@@ -9,6 +9,5 @@ namespace Instagram.ViewModels
     {
         public List<post> p { get; set; }
         public user u { get; set; }
-
     }
 }
