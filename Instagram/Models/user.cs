@@ -36,7 +36,7 @@ namespace Instagram.Models
         [DisplayName("Last Name")]
         [Required(ErrorMessage = "You have to enter your last name")]
         public string Lname { get; set; }
-        [DisplayName("Email Name")]
+        [DisplayName("Email Adress")]
         [Required(ErrorMessage = "You have to enter your email")]
         public string email { get; set; }
         [DisplayName(" Mobile")]

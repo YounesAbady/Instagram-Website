@@ -35,6 +35,7 @@ body {
         width: 175px;
         margin: auto;
         position: center;
+        
     }
 
 .input-1,
@@ -42,6 +43,7 @@ body {
     width: 100%;
     margin-bottom: 5px;
     padding: 8px 12px;
+    
     box-sizing: border-box;
     border-radius: 3px;
 }
@@ -58,7 +60,7 @@ body {
     border-radius: 3px;
 }
 
-.sub-content {
+.sub-content { 
     border: 1px solid #dbdbdb;
     background-color: white;
     width: 300px;
@@ -69,6 +71,7 @@ body {
     justify-content: center;
     margin: 10px auto;
     padding: 20px 50px;
+       
 }
 
 .s-part {
@@ -88,3 +91,4 @@ body {
         letter-spacing: -2px;
         font-weight: normal;
     }
+
