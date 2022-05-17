@@ -73,8 +73,8 @@ C:\Users\youne\source\repos\Instagram\Instagram\bin\System.Web.WebPages.Razor.xm
 C:\Users\youne\source\repos\Instagram\Instagram\bin\Newtonsoft.Json.xml
 C:\Users\youne\source\repos\Instagram\Instagram\bin\Antlr3.Runtime.pdb
 C:\Users\youne\source\repos\Instagram\Instagram\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.csprojAssemblyReference.cache
 C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.csproj.CoreCompileInputs.cache
 C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.csproj.CopyComplete
 C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.dll
 C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.pdb
+C:\Users\youne\source\repos\Instagram\Instagram\obj\Debug\Instagram.csprojAssemblyReference.cache

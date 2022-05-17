@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ILikes.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -237,7 +238,7 @@
     <Content Include="Views\Profile\ViewProfile.cshtml" />
     <Content Include="Views\Profile\EditProfile.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
-    <Content Include="Views\Search\ViewOtherProfile.cshtml" />
+    <Content Include="Views\Profile\ViewOtherProfile.cshtml" />
     <Content Include="Views\Friends\ViewRequests.cshtml" />
     <Content Include="Views\Home\ViewAllPosts.cshtml" />
     <Content Include="Views\Home\makeComment.cshtml" />

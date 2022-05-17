@@ -23,8 +23,7 @@ namespace Instagram.Controllers
             user user = db.users.SingleOrDefault(x => x.email == log.email && x.Password == log.Password);
             if (user != null)
             {
-
-                GlobalUserID.loggedInUserID = user.UserID;
+                GlobalUserID.Instance(user.UserID);
                 return RedirectToAction("ViewAllPosts", "Home");
             }
             else { return RedirectToAction("Login"); }

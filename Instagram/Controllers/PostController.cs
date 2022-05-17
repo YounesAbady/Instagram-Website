@@ -27,7 +27,7 @@ namespace Instagram.Controllers
  
             if (ModelState.IsValid)
             {
-                post.OwnerID = GlobalUserID.loggedInUserID;
+                post.OwnerID = GlobalUserID.get();
                 string FileName = Path.GetFileNameWithoutExtension(post.ImageFile.FileName);
                 string Extension = Path.GetExtension(post.ImageFile.FileName);
                 FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;

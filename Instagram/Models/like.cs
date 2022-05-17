@@ -11,6 +11,7 @@ namespace Instagram.Models
 {
     using System;
     using System.Collections.Generic;
+    using Instagram.Globals;
     
     public partial class like
     {
@@ -22,5 +23,27 @@ namespace Instagram.Models
     
         public virtual post post { get; set; }
         public virtual user user { get; set; }
+        public like Like(int id)
+        {
+            like newLike = new like
+            {
+                PostID = id,
+                NuLikes = true,
+                NuDislikes = false,
+                UserID = GlobalUserID.get()
+            };
+            return newLike;
+        }
+        public like disLike(int id)
+        {
+            like newDislike = new like {
+                PostID = id,
+                NuLikes = false,
+                NuDislikes = true,
+                UserID = GlobalUserID.get()
+            };
+            return newDislike;
+        }
     }
-}
+
+    }

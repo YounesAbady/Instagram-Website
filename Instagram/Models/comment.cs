@@ -11,6 +11,7 @@ namespace Instagram.Models
 {
     using System;
     using System.Collections.Generic;
+    using Instagram.Globals;
     
     public partial class comment
     {
@@ -21,5 +22,14 @@ namespace Instagram.Models
     
         public virtual post post { get; set; }
         public virtual user user { get; set; }
+        public comment newComment(comment comment)
+        {
+            comment newComment = new comment {
+                PostID = comment.PostID,
+                UserID = GlobalUserID.get(),
+                data=comment.data
+            };
+            return newComment;
+        }
     }
 }

@@ -15,18 +15,19 @@ namespace Instagram.Controllers
         // GET: Friends
         public ActionResult ViewRequests()
         {
+            int loggedInUserID = GlobalUserID.get();
             List<SenderAndRecieverData> SenderAndReciever = new List<SenderAndRecieverData>();
-            List<FriendRequest> friends = db.FriendRequests.ToList();
-            foreach (var item in friends)
+            List<FriendRequest> allFriendRequestsFromDatabase = db.FriendRequests.ToList();
+            foreach (var friendRequest in allFriendRequestsFromDatabase)
             {
-                if (item.RecieverID == GlobalUserID.loggedInUserID)
+                if (friendRequest.RecieverID == loggedInUserID)
                 {
-                    var user=new user();
-                    user = db.users.Single(x => x.UserID == item.SenderID); 
+                    var Follower=new user();
+                    Follower = db.users.Single(x => x.UserID == friendRequest.SenderID); 
                     SenderAndRecieverData s = new SenderAndRecieverData
                     {
-                        Sender = user,
-                        request = item
+                        Sender = Follower,
+                        request = friendRequest
                     };
                 SenderAndReciever.Add(s);
                 }
@@ -48,6 +49,20 @@ namespace Instagram.Controllers
             db.Entry(EditedRequest).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("ViewRequests");
+        }
+
+        public ActionResult AddFriend(int id)
+        {
+            int loggedInUserID = GlobalUserID.get();
+            FriendRequest newRequest = new FriendRequest
+            {
+                SenderID = loggedInUserID,
+                RecieverID = id,
+
+            };
+            db.FriendRequests.Add(newRequest);
+            db.SaveChanges();
+            return RedirectToAction("ViewAllPosts","Home");
         }
     }
 }

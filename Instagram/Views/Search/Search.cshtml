@@ -63,7 +63,7 @@
                             <td>@item.Fname</td>
                             <td>@item.Lname</td>
                             <td>@item.email</td>
-                            <td>@Html.ActionLink("View Profile", "ViewOtherProfile", new { id = item.UserID })</td>
+                            <td>@Html.ActionLink("View Profile", "ViewOtherProfile","Profile", new { id = item.UserID },null)</td>
                         </tr>
                     }
                 }

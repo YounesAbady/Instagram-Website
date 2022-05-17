@@ -7,12 +7,12 @@ namespace Instagram.ViewModels
 {
     public class PostsAndUser
     {
-        public post p { get; set; }
-        public user u { get; set; }
+        public post post { get; set; }
+        public user user { get; set; }
         public like Like { get; set; }
         public List<comment> comments { get; set; }
-        public int LikesCounter = 0;
-        public int DislikesCounter = 0;
+        public int likesCounter = 0;
+        public int disLikesCounter = 0;
         public comment makeComment { get; set; }
 
     }

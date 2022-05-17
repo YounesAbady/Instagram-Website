@@ -41,43 +41,43 @@
                     <div class="container">
                         <div class="profile">
                             <div class="profile-image">
-                                @if (item.u.ImagePath != null)
+                                @if (item.user.ImagePath != null)
                                 {
 
-                                    <img src="@Url.Content(item.u.ImagePath)" width="150" height="150">
+                                    <img src="@Url.Content(item.user.ImagePath)" width="150" height="150">
                                 }
                             </div>
                             <div class="profile-bio">
                                 <dt>
-                                    @Html.DisplayNameFor(model => model.u.Fname)
+                                    @Html.DisplayNameFor(model => model.user.Fname)
                                 </dt>
                                 <dd>
-                                    @Html.DisplayFor(model => item.u.Fname)
+                                    @Html.DisplayFor(model => item.user.Fname)
                                 </dd>
                                 <dt>
-                                    @Html.DisplayNameFor(model => model.u.Lname)
+                                    @Html.DisplayNameFor(model => model.user.Lname)
                                 </dt>
                                 <dd>
-                                    @Html.DisplayFor(model => item.u.Lname)
+                                    @Html.DisplayFor(model => item.user.Lname)
                                 </dd>
                                 <dt>
-                                    @Html.DisplayNameFor(model => model.u.email)
+                                    @Html.DisplayNameFor(model => model.user.email)
                                 </dt>
                                 <dd>
-                                    @Html.DisplayFor(model => item.u.email)
+                                    @Html.DisplayFor(model => item.user.email)
                                 </dd>
                                 <dt>
-                                    @Html.DisplayNameFor(model => model.u.mobile)
+                                    @Html.DisplayNameFor(model => model.user.mobile)
                                 </dt>
                                 <dd>
-                                    @Html.DisplayFor(model => item.u.mobile)
+                                    @Html.DisplayFor(model => item.user.mobile)
                                 </dd>
 
                             </div>
                             <br>
                             <div class="profile-user-settings">
                                 <img src="~/img/edit.png" width='25' height='25'>
-                                @Html.ActionLink("Edit", "EditProfile", new { id = item.u.UserID }) |
+                                @Html.ActionLink("Edit", "EditProfile", new { id = item.user.UserID }) |
                             </div>
                         </div>
                         <!-- End of profile section -->
@@ -92,6 +92,8 @@
 
 @foreach (var item in Model)
 {
+    if (item.post != null)
+    {
 
     <!-- Post -->
     <div class="container2">
@@ -99,24 +101,24 @@
             <div class="profile_img">
                 <img src="~/img/prof.png">
                 <span>
-                    @Html.DisplayFor(modelItem => item.u.Fname)
-                    @Html.DisplayFor(modelItem => item.u.Lname)
+                    @Html.DisplayFor(modelItem => item.user.Fname)
+                    @Html.DisplayFor(modelItem => item.user.Lname)
                 </span>
             </div>
             <i class="fa fa-ellipsis-h"></i>
         </div>
         <div class="main_img">
-            <img src="@Url.Content(item.p.ImagePath)">
+            <img src="@Url.Content(item.post.ImagePath)">
         </div>
         <div class="footer">
             <div class="iconsss">
 
-                    @if (item.Like.PostID != item.p.PostID)
+                    @if (item.Like.PostID != item.post.PostID)
                     {
                         <img src="~/img/like.png" width='25' height='25'>
-                        @Html.ActionLink("Like", "Like", new { id = item.p.PostID })
+                        @Html.ActionLink("Like", "Like", new { id = item.post.PostID })
                         <img src="~/img/dis.png" width='25' height='25'>
-                        @Html.ActionLink("Dislike", "Dislike", new { id = item.p.PostID })
+                        @Html.ActionLink("Dislike", "Dislike", new { id = item.post.PostID })
                     }
                     else
                     {
@@ -125,19 +127,19 @@
                     }
 
 
-                Likes:@Html.DisplayFor(modelItem => item.LikesCounter)
+                Likes:@Html.DisplayFor(modelItem => item.likesCounter)
                 ||
-                Dislikes: @Html.DisplayFor(modelItem => item.DislikesCounter)
+                Dislikes: @Html.DisplayFor(modelItem => item.disLikesCounter)
 
             </div>
             <div class="content">
                 Description:
-                @Html.DisplayFor(modelItem => item.p.disc)
+                @Html.DisplayFor(modelItem => item.post.disc)
             </div>
             <div class="comments">
             </div>
             <div class="comments_box">
-                @Html.ActionLink("add your comment", "makeComment", "Home", new { id = item.p.PostID }, null)
+                @Html.ActionLink("add your comment", "makeComment", "Home", new { id = item.post.PostID }, null)
                 <img src="~/img/comment.PNG" width='25' height='25'>
 
 
@@ -145,7 +147,7 @@
             Comments:
             @foreach (var x in item.comments)
             {
-                if (x.PostID == item.p.PostID)
+                if (x.PostID == item.post.PostID)
                 {
                     <div>
                         <dt>
@@ -159,7 +161,8 @@
             }
         </div>
     </div>
-
+    }
 }
+
 </html>
 

@@ -14,86 +14,87 @@ namespace Instagram.Controllers
         ProjectDataBaseEntities db = new ProjectDataBaseEntities();
         // GET: Home
         public ActionResult ViewAllPosts()
-        {
+        {   
+
             int likesCounter ;
             int dislikesCounter;
-            List<FullHomePage> home = new List<FullHomePage>();
+            List<FullHomePage> fullHomePosts = new List<FullHomePage>();
             List<post> allPostsFromDatabase = db.posts.ToList();
             List<FriendRequest> allFriendsFromDatabase = db.FriendRequests.ToList();
-            List<comment> mycomments = new List<comment>();
-            foreach (var x in allFriendsFromDatabase) {
-                if (x.Status==true&x.SenderID==GlobalUserID.loggedInUserID)
+            List<comment> commentsForSpecificPost = new List<comment>();
+            foreach (var friendRequest in allFriendsFromDatabase) {
+                if (friendRequest.Status==true&friendRequest.SenderID== GlobalUserID.get())
                 {
-                    List<like> likes = db.likes.ToList();
-                    like like = new like();
-                    user user = new user();
+                    List<like> allLikesFromDatabase = db.likes.ToList();
+                    like isLiked = new like();
+                    user postOwner = new user();
                     List<comment> allCommentsFromDatabase = db.comments.ToList();
-                    user = db.users.Find(x.RecieverID);
-                    foreach (var item in allPostsFromDatabase) {
-                        if (item.OwnerID == user.UserID)
+                    postOwner = db.users.Find(friendRequest.RecieverID);
+                    foreach (var post in allPostsFromDatabase) {
+                        if (post.OwnerID == postOwner.UserID)
                         {
                             likesCounter = 0;
                             dislikesCounter = 0;
-                            foreach (var y in likes)
+
+                            //to check if the logged in user already made like or dislike
+                            foreach (var like in allLikesFromDatabase)
                             {
-                                if (y.PostID == item.PostID&&y.UserID==GlobalUserID.loggedInUserID)
-                                    like = y;
+                                if (like.PostID == post.PostID&&like.UserID== GlobalUserID.get())
+                                    isLiked = like;
                             }
-                            foreach (var y in likes)
+
+                            //to count how many likes and dis likes
+                            foreach (var like in allLikesFromDatabase)
                             {
-                                if (y.PostID == item.PostID && y.NuLikes == true)
+                                if (like.PostID == post.PostID && like.NuLikes == true)
                                 { likesCounter++; }
-                                else if (y.PostID == item.PostID && y.NuDislikes == true)
+                                else if (like.PostID == post.PostID && like.NuDislikes == true)
                                 {
                                     dislikesCounter++;
                                 }
                             }
-                            foreach (var y in allCommentsFromDatabase)
+                            //to make sure each comment stays with his post
+                            foreach (var comment in allCommentsFromDatabase)
                             {
-                                if (y.PostID == item.PostID)
-                                    mycomments.Add(y);
+                                if (comment.PostID == post.PostID)
+                                    commentsForSpecificPost.Add(comment);
                             }
 
-                            FullHomePage h = new FullHomePage
+                            FullHomePage newHomePost = new FullHomePage
                             {
-                                User = user,
-                                posts = item,
-                                Like = like,
+                                User = postOwner,
+                                posts = post,
+                                Like = isLiked,
                                 LikesCounter = likesCounter,
                                 DislikesCounter = dislikesCounter,
-                                comments = mycomments
+                                comments = commentsForSpecificPost
                             };
-                            if (!home.Contains(h))
-                                 { home.Add(h); }
+                            //to make sure no dublicates
+                            if (!fullHomePosts.Contains(newHomePost))
+                                 { fullHomePosts.Add(newHomePost); }
                         }
                     }
 
                 }
             }
             
-            return View(home);
+            return View(fullHomePosts);
         }
 
         public ActionResult Like (int id)
         {
-            
-            like newLike = new like {
-                PostID=id,
-                NuLikes=true,
-                NuDislikes=false,
-                UserID=GlobalUserID.loggedInUserID
-            };
 
-                db.likes.Add(newLike);
-                db.SaveChanges();
-            
+            like newLike = new like();
+            newLike = newLike.Like(id);
+            db.likes.Add(newLike);
+            db.SaveChanges();
             return RedirectToAction("ViewAllPosts");
         }
 
         public ActionResult Undo(int id)
         {
-            like like = db.likes.Find(id);
-            db.likes.Remove(like);
+            like removedLikeOrDislike = db.likes.Find(id);
+            db.likes.Remove(removedLikeOrDislike);
             db.SaveChanges();
             return RedirectToAction("ViewAllPosts");
         }
@@ -102,10 +103,7 @@ namespace Instagram.Controllers
         {
 
             like newDislike = new like();
-            newDislike.PostID = id;
-            newDislike.NuLikes = false;
-            newDislike.NuDislikes = true;
-            newDislike.UserID = GlobalUserID.loggedInUserID;
+            newDislike = newDislike.disLike(id);
             db.likes.Add(newDislike);
             db.SaveChanges();
 
@@ -114,21 +112,19 @@ namespace Instagram.Controllers
         [HttpGet]
         public ActionResult makeComment(int id)
         {
-            comment c = new comment();
-            c.PostID = id;
+            comment newComment = new comment();
+            newComment.PostID = id;
 
-            return View(c);
+            return View(newComment);
         }
         [HttpPost]
         public ActionResult makeComment(comment comment)
         {
-            comment myc = new comment();
+            comment newComment = new comment();
             if (ModelState.IsValid)
             {
-                myc.PostID = comment.PostID;
-                myc.UserID = GlobalUserID.loggedInUserID;
-                myc.data = comment.data;
-                db.comments.Add(myc);
+                newComment = newComment.newComment(comment);
+                db.comments.Add(newComment);
                 db.SaveChanges();
             }
 
