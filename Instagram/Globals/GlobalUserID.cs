@@ -8,7 +8,7 @@ namespace Instagram.Globals
     public class GlobalUserID
     {
 
-        public static int globalUserID;
+        public static int loggedInUserID;
 
     }
 }

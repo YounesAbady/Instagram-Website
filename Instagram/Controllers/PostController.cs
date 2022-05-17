@@ -27,7 +27,7 @@ namespace Instagram.Controllers
  
             if (ModelState.IsValid)
             {
-                post.OwnerID = GlobalUserID.globalUserID;
+                post.OwnerID = GlobalUserID.loggedInUserID;
                 string FileName = Path.GetFileNameWithoutExtension(post.ImageFile.FileName);
                 string Extension = Path.GetExtension(post.ImageFile.FileName);
                 FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
@@ -36,7 +36,7 @@ namespace Instagram.Controllers
                 post.ImageFile.SaveAs(FileName);
                 db.posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Login", "LoginOrRegistration");
+                return RedirectToAction("ViewAllPosts", "Home");
             }
             return View();
         }

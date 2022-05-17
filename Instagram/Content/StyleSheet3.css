@@ -77,6 +77,7 @@ body {
     background: white;
     overflow: hidden;
     border: none;
+
 }
 
 .top_bar {
@@ -117,6 +118,7 @@ body {
     width: 600px;
     height: 600px;
     margin-bottom: 15px;
+    
 }
 
     .main_img img {

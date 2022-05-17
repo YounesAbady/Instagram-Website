@@ -18,25 +18,25 @@ namespace Instagram.Controllers
             int likesCounter ;
             int dislikesCounter;
             List<FullHomePage> home = new List<FullHomePage>();
-            List<post> posts = db.posts.ToList();
-            List<FriendRequest> friends = db.FriendRequests.ToList();
+            List<post> allPostsFromDatabase = db.posts.ToList();
+            List<FriendRequest> allFriendsFromDatabase = db.FriendRequests.ToList();
             List<comment> mycomments = new List<comment>();
-            foreach (var x in friends) {
-                if (x.Status==true&x.SenderID==GlobalUserID.globalUserID)
+            foreach (var x in allFriendsFromDatabase) {
+                if (x.Status==true&x.SenderID==GlobalUserID.loggedInUserID)
                 {
                     List<like> likes = db.likes.ToList();
                     like like = new like();
                     user user = new user();
-                    List<comment> comnts = db.comments.ToList();
+                    List<comment> allCommentsFromDatabase = db.comments.ToList();
                     user = db.users.Find(x.RecieverID);
-                    foreach (var item in posts) {
+                    foreach (var item in allPostsFromDatabase) {
                         if (item.OwnerID == user.UserID)
                         {
                             likesCounter = 0;
                             dislikesCounter = 0;
                             foreach (var y in likes)
                             {
-                                if (y.PostID == item.PostID&&y.UserID==GlobalUserID.globalUserID)
+                                if (y.PostID == item.PostID&&y.UserID==GlobalUserID.loggedInUserID)
                                     like = y;
                             }
                             foreach (var y in likes)
@@ -48,7 +48,7 @@ namespace Instagram.Controllers
                                     dislikesCounter++;
                                 }
                             }
-                            foreach (var y in comnts)
+                            foreach (var y in allCommentsFromDatabase)
                             {
                                 if (y.PostID == item.PostID)
                                     mycomments.Add(y);
@@ -77,15 +77,14 @@ namespace Instagram.Controllers
         public ActionResult Like (int id)
         {
             
-            List<like> l = db.likes.ToList();
-            like like = new like {
+            like newLike = new like {
                 PostID=id,
                 NuLikes=true,
                 NuDislikes=false,
-                UserID=GlobalUserID.globalUserID
+                UserID=GlobalUserID.loggedInUserID
             };
 
-                db.likes.Add(like);
+                db.likes.Add(newLike);
                 db.SaveChanges();
             
             return RedirectToAction("ViewAllPosts");
@@ -102,13 +101,12 @@ namespace Instagram.Controllers
         public ActionResult Dislike(int id)
         {
 
-            List<like> l = db.likes.ToList();
-            like like = new like();
-            like.PostID = id;
-            like.NuLikes = false;
-            like.NuDislikes = true;
-            like.UserID = GlobalUserID.globalUserID;
-            db.likes.Add(like);
+            like newDislike = new like();
+            newDislike.PostID = id;
+            newDislike.NuLikes = false;
+            newDislike.NuDislikes = true;
+            newDislike.UserID = GlobalUserID.loggedInUserID;
+            db.likes.Add(newDislike);
             db.SaveChanges();
 
             return RedirectToAction("ViewAllPosts");
@@ -128,7 +126,7 @@ namespace Instagram.Controllers
             if (ModelState.IsValid)
             {
                 myc.PostID = comment.PostID;
-                myc.UserID = GlobalUserID.globalUserID;
+                myc.UserID = GlobalUserID.loggedInUserID;
                 myc.data = comment.data;
                 db.comments.Add(myc);
                 db.SaveChanges();
