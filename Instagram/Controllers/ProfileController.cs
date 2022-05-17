@@ -18,52 +18,107 @@ namespace Instagram.Controllers
 
         public ActionResult ViewProfile()
         {
-            PostsAndUser p = new PostsAndUser();
-            user user = db.users.Single(x => x.UserID == GlobalUserID.globalUserID);
-            p.u = user;
-            p.p = db.posts.ToList();
+            int likesCounter;
+            int dislikesCounter;
+            List<PostsAndUser> fullPost = new List<PostsAndUser>();
+            
+            user user = db.users.Single(x => x.UserID == GlobalUserID.loggedInUserID);
+            List<post> allPostsFromDatabase = db.posts.ToList();
+            List<comment> mycomments = new List<comment>();
+            List<like> allLikesFromDatabase = db.likes.ToList();
+            List<comment> allCommentsFromDatabase = db.comments.ToList();
+            like like = new like();
+            foreach (post s in allPostsFromDatabase)
+            {
+                likesCounter = 0;
+                dislikesCounter = 0;
+                if (s.OwnerID == GlobalUserID.loggedInUserID)
+                {
+                    
+                    foreach (var y in allLikesFromDatabase)
+                    {
+                        if (y.PostID == s.PostID && y.UserID == GlobalUserID.loggedInUserID)
+                            like = y;
+                    }
+                    foreach (var y in allLikesFromDatabase)
+                    {
+
+                        if (y.PostID == s.PostID && y.NuLikes == true)
+                        { likesCounter++; }
+                        else if (y.PostID == s.PostID && y.NuDislikes == true)
+                        {
+                            dislikesCounter++;
+                        }
+                    }
+                    foreach (var y in allCommentsFromDatabase)
+                    {
+                        if (y.PostID == s.PostID)
+                            mycomments.Add(y);
+                    }
+                    PostsAndUser finallPost = new PostsAndUser
+                    {
+                        p = s,
+                        u = user,
+                        LikesCounter = likesCounter,
+                        DislikesCounter = dislikesCounter,
+                        comments = mycomments,
+                        Like = like
+                    };
+                    if (!fullPost.Contains(finallPost))
+                        fullPost.Add(finallPost);
+
+
+                }
+            }
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(p);
+            return View(fullPost);
         }
 
         [HttpGet]
         public ActionResult EditProfile(int id)
         {
-            var user = db.users.Single(x => x.UserID == id);
-            if (user == null)
+            var oldUser = db.users.Single(x => x.UserID == id);
+            if (oldUser == null)
                 return HttpNotFound();
             else
             {
-                return View(user);
+                return View(oldUser);
             }
 
         }
         [HttpPost]
-        public ActionResult EditProfile(user u)
+        public ActionResult EditProfile(user editedUser)
         {
             if (ModelState.IsValid)
             {
-                var user = db.users.Single(x => x.UserID == u.UserID);
-                user.Fname = u.Fname;
-                user.Lname = u.Lname;
-                user.Password = u.Password;
-                user.mobile = u.mobile;
-                user.email = u.email;
-                if (u.ImagePath != null)
+                var oldUser = db.users.Single(x => x.UserID == editedUser.UserID);
+                oldUser.Fname = editedUser.Fname;
+                oldUser.Lname = editedUser.Lname;
+                oldUser.Password = editedUser.Password;
+                oldUser.mobile = editedUser.mobile;
+                oldUser.email = editedUser.email;
+                if (editedUser.ImagePath != null)
                 {
-                    string FileName = Path.GetFileNameWithoutExtension(u.ImageFile.FileName);
-                    string Extension = Path.GetExtension(u.ImageFile.FileName);
-                    FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
-                    u.ImagePath = "~/Image/" + FileName;
-                    user.ImagePath = u.ImagePath;
-                    FileName = Path.Combine(Server.MapPath("~/Image/"), FileName);
-                    u.ImageFile.SaveAs(FileName);
+                    try
+                    {
+                        string FileName = Path.GetFileNameWithoutExtension(editedUser.ImageFile.FileName);
+                        string Extension = Path.GetExtension(editedUser.ImageFile.FileName);
+                        FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
+                        editedUser.ImagePath = "~/Image/" + FileName;
+                        oldUser.ImagePath = editedUser.ImagePath;
+                        FileName = Path.Combine(Server.MapPath("~/Image/"), FileName);
+                        editedUser.ImageFile.SaveAs(FileName);
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(oldUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ViewProfile");
             }
@@ -73,6 +128,45 @@ namespace Instagram.Controllers
 
 
         }
+        public ActionResult Like(int id)
+        {
+
+            like newLike = new like
+            {
+                PostID = id,
+                NuLikes = true,
+                NuDislikes = false,
+                UserID = GlobalUserID.loggedInUserID
+            };
+
+            db.likes.Add(newLike);
+            db.SaveChanges();
+
+            return RedirectToAction("ViewProfile");
+        }
+
+        public ActionResult Undo(int id)
+        {
+            like like = db.likes.Find(id);
+            db.likes.Remove(like);
+            db.SaveChanges();
+            return RedirectToAction("ViewProfile");
+        }
+
+        public ActionResult Dislike(int id)
+        {
+
+            like newDislike = new like();
+            newDislike.PostID = id;
+            newDislike.NuLikes = false;
+            newDislike.NuDislikes = true;
+            newDislike.UserID = GlobalUserID.loggedInUserID;
+            db.likes.Add(newDislike);
+            db.SaveChanges();
+
+            return RedirectToAction("ViewProfile");
+        }
+
     }
 }
 

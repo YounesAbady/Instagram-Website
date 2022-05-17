@@ -29,7 +29,7 @@
                 <img src="~/img/prof2.png" class="icon" alt="">
                 @Html.ActionLink("My Profile", "ViewProfile", "Profile")
                 <img src="~/img/log.jpg" class="icon" alt="">
-                @Html.ActionLink("Log Out", "Login", "LoginOrRegistration")
+                @Html.ActionLink("Log Out", "Login", "Login")
             </div>
         </div>
     </nav>
@@ -63,8 +63,6 @@
                             @Html.ActionLink("Like", "Like", new { id = item.posts.PostID })
                             <img src="~/img/dis.png" width='25' height='25'>
                             @Html.ActionLink("Dislike", "Dislike", new { id = item.posts.PostID })
-                            <img src="~/img/comment.PNG" width='25' height='25'>
-                            @Html.ActionLink("Comment", "Comment", new { id = item.posts.PostID })
                         }
                         else
                         {
@@ -86,8 +84,10 @@
                 <div class="comments">
                 </div>
                 <div class="comments_box">
-                    
+
                     @Html.ActionLink("add your comment", "makeComment", new { id = item.posts.PostID })
+                    <img src="~/img/comment.PNG" width='25' height='25'>
+
 
                 </div>
                 Comments:
