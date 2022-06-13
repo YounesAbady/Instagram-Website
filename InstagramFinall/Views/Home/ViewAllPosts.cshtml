@@ -1,0 +1,115 @@
+﻿@model IEnumerable<InstagramFinall.ViewModels.FullHomePage>
+@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/StyleSheet3.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- NavBar -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <img src="~/img/logo.PNG" class="brand-img" alt="">
+
+
+            <div class="nav-items">
+                <img src="~/img/home.PNG" class="icon" alt="">
+                @Html.ActionLink("Home", "ViewAllPosts", "Home")
+                <img src="~/img/search.png" class="icon" alt="">
+                @Html.ActionLink("Search", "Search", "Search")
+                <img src="~/img/add.PNG" class="icon" alt="">
+                @Html.ActionLink("Create Posts", "CreatePost", "Post")
+                <img src="~/img/like.PNG" class="icon" alt="">
+                @Html.ActionLink("Requests", "ViewRequests", "Friends")
+                <img src="~/img/prof2.png" class="icon" alt="">
+                @Html.ActionLink("My Profile", "ViewProfile", "Profile")
+                <img src="~/img/log.jpg" class="icon" alt="">
+                @Html.ActionLink("Log Out", "Login", "Login")
+            </div>
+        </div>
+    </nav>
+
+    @foreach (var item in Model)
+    {
+
+        <!-- Post -->
+        <div class="container">
+            <div class="top_bar">
+                <div class="profile_img">
+                    <img src="~/img/prof.png">
+                    <span>
+                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                        @Html.DisplayFor(modelItem => item.User.LastName)
+                    </span>
+                </div>
+                <i class="fa fa-ellipsis-h"></i>
+            </div>
+            <div class="main_img">
+                <img src="@Url.Content(item.Posts.ImagePath)">
+            </div>
+            <div class="footer">
+                <div class="iconsss">
+                    <div class="left_side">
+
+                        @if (item.Like.PostId != item.Posts.PostId)
+                        {
+
+                            <img src="~/img/like.png" width='25' height='25'>
+                            @Html.ActionLink("Like", "Like", new { id = item.Posts.PostId })
+                            <img src="~/img/dis.png" width='25' height='25'>
+                            @Html.ActionLink("Dislike", "Dislike", new { id = item.Posts.PostId })
+                        }
+                        else
+                        {
+                            <img src="~/img/undo.png" width='25' height='25'>
+                            @Html.ActionLink("Undo", "Undo", new { id = item.Like.LikeId })
+                        }
+
+                    </div>
+
+                    Likes:@Html.DisplayFor(modelItem => item.LikesCounter)
+                    ||
+                    Dislikes: @Html.DisplayFor(modelItem => item.DisLikesCounter)
+
+                </div>
+                <div class="content">
+                    Description:
+                    @Html.DisplayFor(modelItem => item.Posts.Disc)
+                </div>
+                <div class="comments">
+                </div>
+                <div class="comments_box">
+
+                    @Html.ActionLink("add your comment", "makeComment", new { id = item.Posts.PostId })
+                    <img src="~/img/comment.PNG" width='25' height='25'>
+
+
+                </div>
+                Comments:
+                @foreach (var x in item.Comments)
+                {
+                    if (x.PostId == item.Posts.PostId)
+                    {
+                        <div>
+                            <dt>
+                                @Html.DisplayFor(modelItem => x.User.FirstName)
+                                @Html.DisplayFor(modelItem => x.User.LastName) :
+                                @Html.DisplayFor(modelItem => x.Data)
+                            </dt>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <hr><br>
+
+    }
+    </div>
+</body>
+</html>

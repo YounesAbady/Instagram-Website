@@ -1,0 +1,168 @@
+﻿@model IEnumerable<InstagramFinall.ViewModels.PostsAndUser>
+@{
+    ViewBag.Title = "My Profile";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/StyleSheet5.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- NavBar -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <img src="~/img/logo.PNG" class="brand-img" alt="">
+
+            <div class="nav-items">
+                <img src="~/img/home.PNG" class="icon" alt="">
+                @Html.ActionLink("Home", "ViewAllPosts", "Home")
+                <img src="~/img/search.png" class="icon" alt="">
+                @Html.ActionLink("Search", "Search", "Search")
+                <img src="~/img/add.PNG" class="icon" alt="">
+                @Html.ActionLink("Create Posts", "CreatePost", "Post")
+                <img src="~/img/like.PNG" class="icon" alt="">
+                @Html.ActionLink("Requests", "ViewRequests", "Friends")
+                <img src="~/img/prof2.png" class="icon" alt="">
+                @Html.ActionLink("My Profile", "ViewProfile", "Profile")
+                <img src="~/img/log.jpg" class="icon" alt="">
+                @Html.ActionLink("Log Out", "Login", "Login")
+            </div>
+        </div>
+    </nav>
+    @foreach (var item in Model)
+    {
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <header>
+                    <div class="container">
+                        <div class="profile">
+                            <div class="profile-image">
+                                @if (item.User.ImagePath != null)
+                                {
+
+                                    <img src="@Url.Content(item.User.ImagePath)" width="150" height="150">
+                                }
+                            </div>
+                            <div class="profile-bio">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.User.FirstName)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => item.User.FirstName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.User.LastName)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => item.User.LastName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.User.Email)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => item.User.Email)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.User.Mobile)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => item.User.Mobile)
+                                </dd>
+
+                            </div>
+                            <br>
+                            <div class="profile-user-settings">
+                                <img src="~/img/edit.png" width='25' height='25'>
+                                @Html.ActionLink("Edit", "EditProfile", new { id = item.User.UserId }) |
+                            </div>
+                        </div>
+                        <!-- End of profile section -->
+                    </div>
+                    <!-- End of container -->
+                </header>
+            </dl>
+        </div>
+        break;
+    }
+</body>
+
+@foreach (var item in Model)
+{
+    if (item.Post != null)
+    {
+
+        <!-- Post -->
+        <div class="container2">
+            <div class="top_bar">
+                <div class="profile_img">
+                    <img src="~/img/prof.png">
+                    <span>
+                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                        @Html.DisplayFor(modelItem => item.User.LastName)
+                    </span>
+                </div>
+                <i class="fa fa-ellipsis-h"></i>
+            </div>
+            <div class="main_img">
+                <img src="@Url.Content(item.Post.ImagePath)">
+            </div>
+            <div class="footer">
+                <div class="iconsss">
+
+                    @if (item.Like.PostId != item.Post.PostId)
+                    {
+                        <img src="~/img/like.png" width='25' height='25'>
+                        @Html.ActionLink("Like", "Like", new { id = item.Post.PostId })
+                        <img src="~/img/dis.png" width='25' height='25'>
+                        @Html.ActionLink("Dislike", "Dislike", new { id = item.Post.PostId })
+                    }
+                    else
+                    {
+                        <img src="~/img/undo.png" width='25' height='25'>
+                        @Html.ActionLink("Undo", "Undo", new { id = item.Like.LikeId })
+                    }
+
+
+                    Likes:@Html.DisplayFor(modelItem => item.likesCounter)
+                    ||
+                    Dislikes: @Html.DisplayFor(modelItem => item.DisLikesCounter)
+
+                </div>
+                <div class="content">
+                    Description:
+                    @Html.DisplayFor(modelItem => item.Post.Disc)
+                </div>
+                <div class="comments">
+                </div>
+                <div class="comments_box">
+                    @Html.ActionLink("add your comment", "makeComment", "Home", new { id = item.Post.PostId }, null)
+                    <img src="~/img/comment.PNG" width='25' height='25'>
+
+
+                </div>
+                Comments:
+                @foreach (var x in item.Comments)
+                {
+                    if (x.PostId == item.Post.PostId)
+                    {
+                        <div>
+                            <dt>
+                                @Html.DisplayFor(modelItem => x.User.FirstName)
+                                @Html.DisplayFor(modelItem => x.User.LastName) :
+                                @Html.DisplayFor(modelItem => x.Data)
+                            </dt>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+}
+
+</html>
+

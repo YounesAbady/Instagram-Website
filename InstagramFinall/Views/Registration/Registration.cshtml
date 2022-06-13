@@ -1,0 +1,61 @@
+﻿@model InstagramFinall.Models.User
+@{
+    ViewBag.Title = "Registration";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("Registration", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <main>
+            <div class="page">
+                <div class="header">
+                    <img src="~/img/logo.PNG" />
+                </div>
+                <div>
+                    <form>
+                        <div class="container">
+                            @Html.LabelFor(x => x.FirstName)
+                            @Html.TextBoxFor(x => x.FirstName)
+                            @Html.ValidationMessageFor(x => x.FirstName)
+                        </div>
+                        <div class="container">
+                            @Html.LabelFor(x => x.LastName)
+                            @Html.TextBoxFor(x => x.LastName)
+                            @Html.ValidationMessageFor(x => x.LastName)
+                        </div>
+                        <div class="container">
+                            @Html.LabelFor(x => x.Email)
+                            @Html.TextBoxFor(x => x.Email)
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+                        <div class="container">
+                            @Html.LabelFor(x => x.Mobile)
+                            @Html.TextBoxFor(x => x.Mobile)
+                            @Html.ValidationMessageFor(x => x.Mobile)
+                        </div>
+                        <div class="container">
+                            @Html.LabelFor(x => x.Password)
+                            @Html.TextBoxFor(x => x.Password)
+                            @Html.ValidationMessageFor(x => x.Password)
+                        </div>
+                        <br />
+                        <div>
+                            @Html.LabelFor(x => x.ImagePath)
+                            <input type="file" name="ImageFile" required />
+                        </div>
+                        <br />
+                        <button type="submit" id="submit">Sign up</button>
+                    </form>
+                </div>
+            </div>
+            <div class="option">
+                <p>Have an account? @Html.ActionLink("Log in", "Login", "Login")</p>
+            </div>
+        </main>
+    }
+</body>
+</html>
