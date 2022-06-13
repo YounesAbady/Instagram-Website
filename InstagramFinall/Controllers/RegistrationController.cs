@@ -15,8 +15,8 @@ namespace InstagramFinall.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
-            User User = new User();
-            return View(User);
+            User user = new User();
+            return View(user);
         }
 
         [HttpPost]
@@ -26,12 +26,12 @@ namespace InstagramFinall.Controllers
             {
                 return View("Registration", user);
             }
-            string FileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName);
-            string Extension = Path.GetExtension(user.ImageFile.FileName);
-            FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
-            user.ImagePath = "~/Image/" + FileName;
-            FileName = Path.Combine(Server.MapPath("~/Image/"), FileName);
-            user.ImageFile.SaveAs(FileName);
+            string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName);
+            string extension = Path.GetExtension(user.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+            user.ImagePath = "~/Image/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+            user.ImageFile.SaveAs(fileName);
             using (ProjectDataBaseEntities db = new ProjectDataBaseEntities())
             {
                 db.Users.Add(user);

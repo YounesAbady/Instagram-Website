@@ -18,11 +18,11 @@ namespace Instagram.Controllers
 
         public ActionResult ViewProfile()
         {
-            int loggedInUserID = GlobalUserId.Get();
+            int loggedInUserId = GlobalUserId.Get();
             int likesCounter;
-            int dislikesCounter;
+            int disLikesCounter;
             List<PostsAndUser> fullPosts = new List<PostsAndUser>();
-            User loggedUser = db.Users.Single(x => x.UserId == loggedInUserID);
+            User loggedUser = db.Users.Single(x => x.UserId == loggedInUserId);
             List<Post> allPostsFromDatabase = db.Posts.ToList();
             List<Comment> commentsForSpecificPost = new List<Comment>();
             List<Like> allLikesFromDatabase = db.Likes.ToList();
@@ -31,14 +31,14 @@ namespace Instagram.Controllers
             foreach (Post post in allPostsFromDatabase)
             {
                 likesCounter = 0;
-                dislikesCounter = 0;
+                disLikesCounter = 0;
                 //to make sure only logged in user posts goes to view
-                if (post.OwnerId == loggedInUserID)
+                if (post.OwnerId == loggedInUserId)
                 {
                     //to check if the logged in user already made like or dislike
                     foreach (var like in allLikesFromDatabase)
                     {
-                        if (like.PostId == post.PostId && like.UserId == loggedInUserID)
+                        if (like.PostId == post.PostId && like.UserId == loggedInUserId)
                             isLiked = like;
                     }
                     //to count how many likes and dis likes
@@ -49,7 +49,7 @@ namespace Instagram.Controllers
                         { likesCounter++; }
                         else if (like.PostId == post.PostId && like.NuDislikes == true)
                         {
-                            dislikesCounter++;
+                            disLikesCounter++;
                         }
                     }
                     //to make sure each comment stays with his post
@@ -58,18 +58,18 @@ namespace Instagram.Controllers
                         if (comment.PostId == post.PostId)
                             commentsForSpecificPost.Add(comment);
                     }
-                    PostsAndUser finallPost = new PostsAndUser
+                    PostsAndUser FinallPost = new PostsAndUser
                     {
                         Post = post,
                         User = loggedUser,
                         likesCounter = likesCounter,
-                        DisLikesCounter = dislikesCounter,
+                        DisLikesCounter = disLikesCounter,
                         Comments = commentsForSpecificPost,
                         Like = isLiked
                     };
                     //to make sure no dublicates
-                    if (!fullPosts.Contains(finallPost))
-                        fullPosts.Add(finallPost);
+                    if (!fullPosts.Contains(FinallPost))
+                        fullPosts.Add(FinallPost);
 
 
                 }
@@ -82,13 +82,13 @@ namespace Instagram.Controllers
             if (fullPosts.Count == 0)
             {
                 //to check if profile empty or not
-                PostsAndUser finallPost = new PostsAndUser
+                PostsAndUser FinallPost = new PostsAndUser
                 {
 
                     User = loggedUser
 
                 };
-                fullPosts.Add(finallPost);
+                fullPosts.Add(FinallPost);
             }
             return View(fullPosts);
         }
@@ -124,13 +124,13 @@ namespace Instagram.Controllers
                 {
                     try
                     {
-                        string FileName = Path.GetFileNameWithoutExtension(editedUser.ImageFile.FileName);
-                        string Extension = Path.GetExtension(editedUser.ImageFile.FileName);
-                        FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
-                        editedUser.ImagePath = "~/Image/" + FileName;
+                        string fileName = Path.GetFileNameWithoutExtension(editedUser.ImageFile.FileName);
+                        string extension = Path.GetExtension(editedUser.ImageFile.FileName);
+                        fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+                        editedUser.ImagePath = "~/Image/" + fileName;
                         oldUser.ImagePath = editedUser.ImagePath;
-                        FileName = Path.Combine(Server.MapPath("~/Image/"), FileName);
-                        editedUser.ImageFile.SaveAs(FileName);
+                        fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                        editedUser.ImageFile.SaveAs(fileName);
                     }
                     catch
                     {
@@ -167,30 +167,30 @@ namespace Instagram.Controllers
         public ActionResult Dislike(int id)
         {
 
-            Like newDislike = new Like();
-            newDislike = newDislike.DisLike(id);
-            db.Likes.Add(newDislike);
+            Like newDisLike = new Like();
+            newDisLike = newDisLike.DisLike(id);
+            db.Likes.Add(newDisLike);
             db.SaveChanges();
 
             return RedirectToAction("ViewAllPosts", "Home");
         }
         public ActionResult ViewOtherProfile(int id)
         {
-            int loggedInUserID = GlobalUserId.Get();
+            int loggedInUserId = GlobalUserId.Get();
             bool isFriends = false;
             int likesCounter;
-            int dislikesCounter;
+            int disLikesCounter;
             PostsAndUserAndFriendshipAndComments page = new PostsAndUserAndFriendshipAndComments();
             List<Post> allPostsFromDatabase = db.Posts.ToList();
             page.User = db.Users.Single(x => x.UserId == id);
             List<FriendRequest> allFriendReqsFromDatabase = db.FriendRequests.ToList();
-            foreach (FriendRequest f in allFriendReqsFromDatabase)
+            foreach (FriendRequest friendReq in allFriendReqsFromDatabase)
             {
                 //to make sure of already friends or not
-                if (f.SenderId == loggedInUserID && f.RecieverId == id)
+                if (friendReq.SenderId == loggedInUserId && friendReq.RecieverId == id)
                 {
-                    page.NewFriendRequest = f;
-                    if (f.Status == true)
+                    page.NewFriendRequest = friendReq;
+                    if (friendReq.Status == true)
                         isFriends = true;
                 }
             }
@@ -199,19 +199,19 @@ namespace Instagram.Controllers
                 Like isLiked = new Like();
                 List<Like> allLikesFromDatabase = db.Likes.ToList();
                 List<Comment> allCommentsFromDatabase = db.Comments.ToList();
-                List<Comment> mycomments = new List<Comment>();
+                List<Comment> myComments = new List<Comment>();
                 foreach (var post in allPostsFromDatabase)
                 {
                     //to make sure only can see posts for that user
                     if (post.OwnerId == page.User.UserId)
                     {
                         likesCounter = 0;
-                        dislikesCounter = 0;
+                        disLikesCounter = 0;
                         //to know if you already liked or not
 
                         foreach (var like in allLikesFromDatabase)
                         {
-                            if (like.PostId == post.PostId && like.UserId == loggedInUserID)
+                            if (like.PostId == post.PostId && like.UserId == loggedInUserId)
                                 isLiked = like;
                         }
                         //to count how many likes or dislikes
@@ -221,14 +221,14 @@ namespace Instagram.Controllers
                             { likesCounter++; }
                             else if (like.PostId == post.PostId && like.NuDislikes == true)
                             {
-                                dislikesCounter++;
+                                disLikesCounter++;
                             }
                         }
                         //to make sure each comment you can see in its post
                         foreach (var comment in allCommentsFromDatabase)
                         {
                             if (comment.PostId == post.PostId)
-                                mycomments.Add(comment);
+                                myComments.Add(comment);
                         }
 
                         FullHomePage h = new FullHomePage
@@ -237,8 +237,8 @@ namespace Instagram.Controllers
                             Posts = post,
                             Like = isLiked,
                             LikesCounter = likesCounter,
-                            DisLikesCounter = dislikesCounter,
-                            Comments = mycomments
+                            DisLikesCounter = disLikesCounter,
+                            Comments = myComments
                         };
                         page.Pages.Add(h);
                     }

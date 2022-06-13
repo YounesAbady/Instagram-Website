@@ -17,7 +17,7 @@ namespace Instagram.Controllers
         {
 
             int likesCounter;
-            int dislikesCounter;
+            int disLikesCounter;
             List<FullHomePage> fullHomePosts = new List<FullHomePage>();
             List<Post> allPostsFromDatabase = db.Posts.ToList();
             List<FriendRequest> allFriendsFromDatabase = db.FriendRequests.ToList();
@@ -37,7 +37,7 @@ namespace Instagram.Controllers
                         if (post.OwnerId == postOwner.UserId)
                         {
                             likesCounter = 0;
-                            dislikesCounter = 0;
+                            disLikesCounter = 0;
 
                             //to check if the logged in user already made like or dislike
                             foreach (var like in allLikesFromDatabase)
@@ -53,7 +53,7 @@ namespace Instagram.Controllers
                                 { likesCounter++; }
                                 else if (like.PostId == post.PostId && like.NuDislikes == true)
                                 {
-                                    dislikesCounter++;
+                                    disLikesCounter++;
                                 }
                             }
                             //to make sure each comment stays with his post
@@ -63,18 +63,18 @@ namespace Instagram.Controllers
                                     commentsForSpecificPost.Add(comment);
                             }
 
-                            FullHomePage newHomePost = new FullHomePage
+                            FullHomePage NewHomePost = new FullHomePage
                             {
                                 User = postOwner,
                                 Posts = post,
                                 Like = isLiked,
                                 LikesCounter = likesCounter,
-                                DisLikesCounter = dislikesCounter,
+                                DisLikesCounter = disLikesCounter,
                                 Comments = commentsForSpecificPost
                             };
                             //to make sure no dublicates
-                            if (!fullHomePosts.Contains(newHomePost))
-                            { fullHomePosts.Add(newHomePost); }
+                            if (!fullHomePosts.Contains(NewHomePost))
+                            { fullHomePosts.Add(NewHomePost); }
                         }
                     }
 
@@ -96,8 +96,8 @@ namespace Instagram.Controllers
 
         public ActionResult Undo(int id)
         {
-            Like removedLikeOrDislike = db.Likes.Find(id);
-            db.Likes.Remove(removedLikeOrDislike);
+            Like removedLikeOrDisLike = db.Likes.Find(id);
+            db.Likes.Remove(removedLikeOrDisLike);
             db.SaveChanges();
             return RedirectToAction("ViewAllPosts");
         }
@@ -105,15 +105,15 @@ namespace Instagram.Controllers
         public ActionResult Dislike(int id)
         {
 
-            Like newDislike = new Like();
-            newDislike = newDislike.DisLike(id);
-            db.Likes.Add(newDislike);
+            Like newDisLike = new Like();
+            newDisLike = newDisLike.DisLike(id);
+            db.Likes.Add(newDisLike);
             db.SaveChanges();
 
             return RedirectToAction("ViewAllPosts");
         }
         [HttpGet]
-        public ActionResult makeComment(int id)
+        public ActionResult MakeComment(int id)
         {
             Comment newComment = new Comment();
             newComment.PostId = id;
@@ -121,7 +121,7 @@ namespace Instagram.Controllers
             return View(newComment);
         }
         [HttpPost]
-        public ActionResult makeComment(Comment comment)
+        public ActionResult MakeComment(Comment comment)
         {
             Comment newComment = new Comment();
             if (ModelState.IsValid)

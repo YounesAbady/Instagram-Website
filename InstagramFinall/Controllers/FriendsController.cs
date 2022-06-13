@@ -16,48 +16,48 @@ namespace InstagramFinall.Controllers
         // GET: Friends
         public ActionResult ViewRequests()
         {
-            int LoggedInUserId = GlobalUserId.Get();
-            List<SenderAndReceiverData> SenderAndReceiver = new List<SenderAndReceiverData>();
-            List<FriendRequest> AllFriendRequestsFromDatabase = Db.FriendRequests.ToList();
-            foreach (var FriendRequest in AllFriendRequestsFromDatabase)
+            int loggedInUserId = GlobalUserId.Get();
+            List<SenderAndReceiverData> senderAndReceiver = new List<SenderAndReceiverData>();
+            List<FriendRequest> allFriendRequestsFromDatabase = Db.FriendRequests.ToList();
+            foreach (var friendRequest in allFriendRequestsFromDatabase)
             {
-                if (FriendRequest.RecieverId == LoggedInUserId)
+                if (friendRequest.RecieverId == loggedInUserId)
                 {
-                    var Follower = new User();
-                    Follower = Db.Users.Single(x => x.UserId == FriendRequest.SenderId);
+                    var follower = new User();
+                    follower = Db.Users.Single(x => x.UserId == friendRequest.SenderId);
                     SenderAndReceiverData Instance = new SenderAndReceiverData
                     {
-                        Sender = Follower,
-                        Request = FriendRequest
+                        Sender = follower,
+                        Request = friendRequest
                     };
-                    SenderAndReceiver.Add(Instance);
+                    senderAndReceiver.Add(Instance);
                 }
             }
-            return View(SenderAndReceiver);
+            return View(senderAndReceiver);
         }
         public ActionResult Accept(int id)
         {
-            var EditedRequest = Db.FriendRequests.Find(id);
-            EditedRequest.Status = true;
-            Db.Entry(EditedRequest).State = EntityState.Modified;
+            var editedRequest = Db.FriendRequests.Find(id);
+            editedRequest.Status = true;
+            Db.Entry(editedRequest).State = EntityState.Modified;
             Db.SaveChanges();
             return RedirectToAction("ViewRequests");
         }
         public ActionResult Reject(int id)
         {
-            var EditedRequest = Db.FriendRequests.Find(id);
-            EditedRequest.Status = false;
-            Db.Entry(EditedRequest).State = EntityState.Modified;
+            var editedRequest = Db.FriendRequests.Find(id);
+            editedRequest.Status = false;
+            Db.Entry(editedRequest).State = EntityState.Modified;
             Db.SaveChanges();
             return RedirectToAction("ViewRequests");
         }
 
         public ActionResult AddFriend(int id)
         {
-            int LoggedInUserID = GlobalUserId.Get();
+            int loggedInUserID = GlobalUserId.Get();
             FriendRequest NewRequest = new FriendRequest
             {
-                SenderId = LoggedInUserID,
+                SenderId = loggedInUserID,
                 RecieverId = id,
 
             };

@@ -13,12 +13,12 @@ namespace Instagram.Controllers
         ProjectDataBaseEntities db = new ProjectDataBaseEntities();
         // GET: Search
 
-        public ActionResult Search(string Searching)
+        public ActionResult Search(string searching)
         {
-            int Id = GlobalUserId.Get();
-            ViewData["ID"] = Id;
+            int id = GlobalUserId.Get();
+            ViewData["ID"] = id;
             //user can search by first name-last name-email
-            return View(db.Users.Where(x => x.FirstName.StartsWith(Searching) || x.LastName.StartsWith(Searching) || Searching == null || x.Email.StartsWith(Searching)).ToList());
+            return View(db.Users.Where(x => x.FirstName.StartsWith(searching) || x.LastName.StartsWith(searching) || searching == null || x.Email.StartsWith(searching)).ToList());
         }
 
 

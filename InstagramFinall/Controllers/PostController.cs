@@ -28,12 +28,12 @@ namespace Instagram.Controllers
             if (ModelState.IsValid)
             {
                 Post.OwnerId = GlobalUserId.Get();
-                string FileName = Path.GetFileNameWithoutExtension(Post.ImageFile.FileName);
-                string Extension = Path.GetExtension(Post.ImageFile.FileName);
-                FileName = FileName + DateTime.Now.ToString("yymmssffff") + Extension;
-                Post.ImagePath = "~/Image/" + FileName;
-                FileName = Path.Combine(Server.MapPath("~/Image/"), FileName);
-                Post.ImageFile.SaveAs(FileName);
+                string fileName = Path.GetFileNameWithoutExtension(Post.ImageFile.FileName);
+                string extension = Path.GetExtension(Post.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+                Post.ImagePath = "~/Image/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                Post.ImageFile.SaveAs(fileName);
                 db.Posts.Add(Post);
                 db.SaveChanges();
                 return RedirectToAction("ViewAllPosts", "Home");
